@@ -24,18 +24,16 @@ public class File {
 	public static List<Agenda> readTheFile() throws Exception{
 		List<Agenda> agendas = new ArrayList<>();
 		FileReader file = new FileReader("Agendamentos");
+		
 		try (BufferedReader reader = new BufferedReader(file)) {
-			String[] data = reader.readLine().split(",");
-			int i = 1;
-			do {
+			String line;
+			while ((line=reader.readLine())!=null) {
+				String[] data = line.split(",");
 				Agenda agenda = new Agenda();
-				agenda.setData(DateUtil.parseString(data[0]));
-				agenda.setInformacao(data[1]);
-				agendas.add(agenda);
-				reader.readLine();
-				i++;
-			} while (i < data.length);
-
+				 agenda.setData(DateUtil.parseString(data[0])); 
+				 agenda.setInformacao(data[1]);
+				 agendas.add(agenda);
+			}
 			reader.close();
 			file.close();
 
