@@ -1,5 +1,8 @@
 package com.example.demo.filebd;
 
+import static com.example.demo.constants.ApiConstants.FILE_NAME;
+import static com.example.demo.constants.ApiConstants.TEMP_FILE;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,11 +18,8 @@ import com.example.demo.util.DateUtil;
 
 public class Ficheiro {
 
-	private static String fileName = "Agendamentos";
-	private static String filePath = "Agendamentos.txt";
-	
-	public static void WriteOnTheFile(Agenda agenda) throws IOException {
-		try (BufferedWriter buffer = new BufferedWriter(new FileWriter(fileName, true))) {
+	public static void writeTheFile(Agenda agenda) throws IOException {
+		try (BufferedWriter buffer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
 			buffer.write(agenda.toString());
 			buffer.newLine();
 			buffer.close();
@@ -28,7 +28,7 @@ public class Ficheiro {
 
 	public static List<Agenda> readTheFile() throws Exception {
 		List<Agenda> agendas = new ArrayList<>();
-		FileReader file = new FileReader(fileName);
+		FileReader file = new FileReader(FILE_NAME);
 
 		try (BufferedReader reader = new BufferedReader(file)) {
 			String line;
@@ -46,43 +46,79 @@ public class Ficheiro {
 		return agendas;
 	}
 
-	public static void delete(String removeTerm, int positionOfTerm) {
-		int position = positionOfTerm - 1;
-		String tempFile = "temp.txt";
-		File oldFile = new File(filePath);
-		File newFile = new File(tempFile);
-		
+	public static void delete(String removeTerm) {
+		File oldFile = new File(FILE_NAME);
+		File newFile = new File(TEMP_FILE);
+
 		String currentLine;
 		String data[];
-		
+
 		try {
-			FileWriter fw = new FileWriter(fileName, true);
+			FileWriter fw = new FileWriter(TEMP_FILE, true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw);
-			
-			FileReader fr = new FileReader(fileName);
+
+			FileReader fr = new FileReader(FILE_NAME);
 			BufferedReader br = new BufferedReader(fr);
-			
+
 			while ((currentLine = br.readLine()) != null) {
 				data = currentLine.split(",");
-				if(!(data[position].equalsIgnoreCase(removeTerm))) {
+				if (!(data[1].equalsIgnoreCase(removeTerm))) {
 					pw.println(currentLine);
 				}
 			}
-			
+
 			pw.flush();
 			pw.close();
+			fw.close();
+			bw.close();
 			fr.close();
 			br.close();
-			bw.close();
-			fw.close();
-			
+
 			oldFile.delete();
-			File dump = new File(filePath);
+			File dump = new File(FILE_NAME);
 			newFile.renameTo(dump);
-					
-		}catch (Exception e) {
-			// TODO: handle exception
+
+		} catch (Exception e) {
+		}
+	}
+	
+	public static void modifyDetails(String removeTerm, String newInfo) {
+		File oldFile = new File(FILE_NAME);
+		File newFile = new File(TEMP_FILE);
+
+		String currentLine;
+		String data[];
+
+		try {
+			FileWriter fw = new FileWriter(TEMP_FILE, true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
+
+			FileReader fr = new FileReader(FILE_NAME);
+			BufferedReader br = new BufferedReader(fr);
+
+			while ((currentLine = br.readLine()) != null) {
+				data = currentLine.split(",");
+				if (data[1].equalsIgnoreCase(removeTerm)) {
+					pw.println(newInfo);
+				}else {
+					pw.println(currentLine);
+				}
+			}
+
+			pw.flush();
+			pw.close();
+			fw.close();
+			bw.close();
+			fr.close();
+			br.close();
+
+			oldFile.delete();
+			File dump = new File(FILE_NAME);
+			newFile.renameTo(dump);
+
+		} catch (Exception e) {
 		}
 	}
 

@@ -13,7 +13,13 @@ import com.example.demo.filebd.Ficheiro;
 public class AgendaService {
 
 	public void save(Agenda agenda) throws Exception {
-		Ficheiro.WriteOnTheFile(agenda);
+		Ficheiro.writeTheFile(agenda);
+	}
+	
+	public Agenda update(int id, String info) throws Exception {
+		Agenda agenda = list().get(id - 1);
+		Ficheiro.modifyDetails(agenda.getInformacao(), info);
+		return list().get(id - 1);
 	}
 
 	public List<Agenda> list() throws Exception{
@@ -22,5 +28,10 @@ public class AgendaService {
 	
 	public List<Agenda> findByDate(Date date) throws Exception{
 		return Ficheiro.readTheFile().stream().filter(a->a.getData().equals(date)).collect(Collectors.toList());
+	}
+	
+	public void delete(int id) throws Exception {
+		Agenda a = list().get(id - 1);
+		Ficheiro.delete(a.getInformacao());
 	}
 }

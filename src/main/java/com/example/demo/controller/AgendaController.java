@@ -14,39 +14,39 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Agenda;
 import com.example.demo.dto.AgendaDTO;
+import com.example.demo.dto.MarcacaoDTO;
 import com.example.demo.service.AgendaService;
 import com.example.demo.util.DateUtil;
 
-
 @RestController
-@RequestMapping(value="api/v1")
+@RequestMapping(value = "api/v1")
 public class AgendaController {
 
 	@Autowired
 	AgendaService agendaService;
-	
-	@GetMapping(value="/marcacao")
+
+	@GetMapping(value = "/marcacao")
 	public List<Agenda> list() throws Exception {
 		return agendaService.list();
 	}
-	
-	@PostMapping(value="/marcacao/save")
+
+	@PostMapping(value = "/marcacao/save")
 	public void save(@RequestBody AgendaDTO dto) throws Exception {
 		agendaService.save(dto.toEntity());
 	}
-	
-	@PutMapping(value="/authors/update/{id}")
-	public Agenda update(@RequestBody AgendaDTO dto,@PathVariable("id") Long id) {
-		return null;
+
+	@PutMapping(value = "/marcacao/update")
+	public Agenda update(@RequestBody MarcacaoDTO dto) throws Exception {
+		return agendaService.update(dto.getId(), dto.toString());
 	}
-	
-	@DeleteMapping(value="/marcacao/delete/{id}")
-	public void delete(@PathVariable("id") int  id) {
-		
+
+	@DeleteMapping(value = "/marcacao/delete/{id}")
+	public void delete(@PathVariable("id") int id) throws Exception {
+		agendaService.delete(id);
 	}
-	
-	@GetMapping(value="/marcacao/byDate/{date}")
-	public List<Agenda> list(@PathVariable("date") String date) throws Exception{
+
+	@GetMapping(value = "/marcacao/byDate/{date}")
+	public List<Agenda> list(@PathVariable("date") String date) throws Exception {
 		return agendaService.findByDate(DateUtil.formatStringToDate(date));
 	}
 }
