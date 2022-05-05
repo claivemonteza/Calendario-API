@@ -7,17 +7,26 @@ import java.util.Date;
 
 public class DateUtil {
 
-
 	public static Date formatStringToDate(String str) throws Exception {
 		Date date = null;
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			date = (Date) formatter.parse(str);
-		}catch (ParseException e) {
+		} catch (ParseException e) {
 			formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
 			date = (Date) formatter.parse(str);
 		}
-		return date;
+		return formatDate(date);
+	}
+
+	public static Date formatDate(Date date) {
+		try {
+			DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+			String data = formatter.format(date);
+			return formatter.parse(data);
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }
