@@ -13,10 +13,11 @@ public class DateUtil {
 		try {
 			date = (Date) formatter.parse(str);
 		} catch (ParseException e) {
-			formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
-			date = (Date) formatter.parse(str);
+			  formatter = new SimpleDateFormat("EEE MMM dd yyyy"); 
+			  date = (Date)
+			  formatter.parse(str);
 		}
-		return formatDate(date);
+		return date;
 	}
 
 	public static Date formatDate(Date date) {
@@ -27,6 +28,12 @@ public class DateUtil {
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public static String format(Date date) {
+		DateFormat formatter = new SimpleDateFormat("EEE MMM dd yyyy");
+		String data = formatter.format(date);
+		return data;
 	}
 
 }
