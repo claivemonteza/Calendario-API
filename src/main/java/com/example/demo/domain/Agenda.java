@@ -2,7 +2,7 @@ package com.example.demo.domain;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.example.demo.util.DateUtil;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +20,7 @@ public class Agenda {
 
 	@Override
 	public String toString() {
-		return data + "," + informacao;
+		return DateUtil.format(data) + "," + informacao;
 	}
 	
 	
