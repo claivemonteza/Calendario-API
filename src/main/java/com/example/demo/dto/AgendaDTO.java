@@ -14,6 +14,7 @@ public class AgendaDTO {
 	@NotBlank(message = "Please enter a Date (yyyy-MM-dd)")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private String data;
+	
 	@NotBlank(message = "Please enter a Information")
 	private String informacao;
 	

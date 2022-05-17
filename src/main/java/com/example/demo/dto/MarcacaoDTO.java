@@ -1,8 +1,9 @@
 package com.example.demo.dto;
 
-import java.util.Date;
+import javax.validation.constraints.NotBlank;
 
 import com.example.demo.domain.Agenda;
+import com.example.demo.util.DateUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
@@ -11,16 +12,16 @@ import lombok.Data;
 public class MarcacaoDTO {
 	
 	private int id;
+	
+	@NotBlank(message = "Please enter a Date (yyyy-MM-dd)")
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	private Date data;
+	private String data;
 
+	@NotBlank(message = "Please enter a Information")
 	private String informacao;
 
-	public Agenda toEntity(){
-		return new Agenda(data, informacao);
-	} 
-	
-	public String toString() {
-		return data + "," + informacao;
+	public Agenda toEntity() throws Exception{
+		return new Agenda(DateUtil.formatStringToDate(data), informacao);
 	}
+
 }

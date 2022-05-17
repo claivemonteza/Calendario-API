@@ -36,7 +36,7 @@ public class AgendaController {
 
 	@PutMapping(value = "/marcacao/update")
 	public Agenda update(@RequestBody MarcacaoDTO dto) throws Exception {
-		return agendaService.update(dto.getId(), dto.toString());
+		return agendaService.update(dto.getId(), dto.toEntity().toString());
 	}
 
 	@GetMapping(value = "/marcacao/delete/{id}")
