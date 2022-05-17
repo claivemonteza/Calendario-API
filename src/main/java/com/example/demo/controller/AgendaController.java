@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +39,7 @@ public class AgendaController {
 		return agendaService.update(dto.getId(), dto.toString());
 	}
 
-	@DeleteMapping(value = "/marcacao/delete/{id}")
+	@GetMapping(value = "/marcacao/delete/{id}")
 	public void delete(@PathVariable("id") int id) throws Exception {
 		agendaService.delete(id);
 	}
@@ -49,4 +48,5 @@ public class AgendaController {
 	public List<Agenda> list(@PathVariable("date") String date) throws Exception {
 		return agendaService.findByDate(DateUtil.formatStringToDate(date));
 	}
+
 }

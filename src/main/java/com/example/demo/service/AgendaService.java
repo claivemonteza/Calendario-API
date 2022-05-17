@@ -31,7 +31,7 @@ public class AgendaService {
 	}
 	
 	public void delete(int id) throws Exception {
-		Agenda a = list().get(id - 1);
-		Ficheiro.delete(a.getInformacao());
+		Ficheiro.delete(id);
 	}
+	
 }

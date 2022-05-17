@@ -46,7 +46,10 @@ public class Ficheiro {
 		return agendas;
 	}
 
-	public static void delete(String removeTerm) {
+	public static void delete(int id) throws Exception {
+
+		Agenda agenda = readTheFile().get(id - 1);
+
 		File oldFile = new File(FILE_NAME);
 		File newFile = new File(TEMP_FILE);
 
@@ -63,7 +66,7 @@ public class Ficheiro {
 
 			while ((currentLine = br.readLine()) != null) {
 				data = currentLine.split(",");
-				if (!(data[1].equalsIgnoreCase(removeTerm))) {
+				if (!(data[1].equalsIgnoreCase(agenda.getInformacao()))) {
 					pw.println(currentLine);
 				}
 			}
@@ -82,7 +85,7 @@ public class Ficheiro {
 		} catch (Exception e) {
 		}
 	}
-	
+
 	public static void modifyDetails(String removeTerm, String newInfo) {
 		File oldFile = new File(FILE_NAME);
 		File newFile = new File(TEMP_FILE);
@@ -102,7 +105,7 @@ public class Ficheiro {
 				data = currentLine.split(",");
 				if (data[1].equalsIgnoreCase(removeTerm)) {
 					pw.println(newInfo);
-				}else {
+				} else {
 					pw.println(currentLine);
 				}
 			}
