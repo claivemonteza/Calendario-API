@@ -41,14 +41,14 @@ public class AgendaController {
 		return agendaService.update(dto.getId(), dto.toEntity().toString());
 	}
 
-	@GetMapping(value = "/marcacao/delete/{id}")
+	/*@GetMapping(value = "/marcacao/delete/{id}")
 	public void delete(@PathVariable("id") int id) throws Exception {
 		agendaService.delete(id);
-	}
+	}*/
 	
 	@DeleteMapping(value = "/marcacao/deleteInfo/{date}")
-	public void delete(@PathVariable("date") String date, @RequestParam("information") String information ) throws Exception {
-		agendaService.delete(DateUtil.formatStringToDate(date), information);
+	public void delete(@PathVariable("date") String data, @RequestParam("information") String informacao ) throws Exception {
+		agendaService.delete(DateUtil.formatStringToDate(data), informacao);
 	}
 
 	@GetMapping(value = "/marcacao/byDate/{date}")
