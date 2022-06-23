@@ -34,4 +34,8 @@ public class AgendaService {
 		Ficheiro.delete(id);
 	}
 	
+	public void delete(Date date, String info) throws Exception {
+		Ficheiro.delete(date, info);
+	}
+	
 }

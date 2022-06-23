@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.example.demo.domain.Agenda;
@@ -67,6 +68,44 @@ public class Ficheiro {
 			while ((currentLine = br.readLine()) != null) {
 				data = currentLine.split(",");
 				if (!(data[1].equalsIgnoreCase(agenda.getInformacao()))) {
+					pw.println(currentLine);
+				}
+			}
+
+			pw.flush();
+			pw.close();
+			fw.close();
+			bw.close();
+			fr.close();
+			br.close();
+
+			oldFile.delete();
+			File dump = new File(FILE_NAME);
+			newFile.renameTo(dump);
+
+		} catch (Exception e) {
+		}
+	}
+	
+	public static void delete(Date date, String info) throws Exception {
+
+		File oldFile = new File(FILE_NAME);
+		File newFile = new File(TEMP_FILE);
+
+		String currentLine;
+		String data[];
+		
+		try {
+			FileWriter fw = new FileWriter(TEMP_FILE, true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
+
+			FileReader fr = new FileReader(FILE_NAME);
+			BufferedReader br = new BufferedReader(fr);
+
+			while ((currentLine = br.readLine()) != null) {
+				data = currentLine.split(",");
+				if ( !data[0].equals(date) && !(data[1].equalsIgnoreCase(info))) {
 					pw.println(currentLine);
 				}
 			}
