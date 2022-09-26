@@ -10,12 +10,14 @@ import lombok.Data;
 @Data
 public class AgendaResponseDTO {
 
-	@JsonFormat(pattern = "EEE MMM dd YYYY")
+	@JsonFormat(pattern = "M/d/YYYY")
 	private Date data;
 	private String informacao;
+	private int day;
 	
 	public AgendaResponseDTO(Agenda agenda){
 		this.data = agenda.getData();
 		this.informacao = agenda.getInformacao();
+		this.day = agenda.getData().getDate();
 	}
 }
