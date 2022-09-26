@@ -19,11 +19,12 @@ import com.example.demo.util.DateUtil;
 
 public class Ficheiro {
 
-	public static void writeTheFile(Agenda agenda) throws IOException {
+	public static Agenda writeTheFile(Agenda agenda) throws IOException {
 		try (BufferedWriter buffer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
 			buffer.write(agenda.toString());
 			buffer.newLine();
 			buffer.close();
+			return agenda;
 		}
 	}
 

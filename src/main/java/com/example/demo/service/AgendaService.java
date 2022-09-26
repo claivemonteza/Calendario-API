@@ -12,8 +12,8 @@ import com.example.demo.filebd.Ficheiro;
 @Service
 public class AgendaService {
 
-	public void save(Agenda agenda) throws Exception {
-		Ficheiro.writeTheFile(agenda);
+	public Agenda save(Agenda agenda) throws Exception {
+		return Ficheiro.writeTheFile(agenda);
 	}
 	
 	public Agenda update(int id, String info) throws Exception {
