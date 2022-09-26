@@ -1,8 +1,11 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Agenda;
 import com.example.demo.dto.AgendaDTO;
+import com.example.demo.dto.AgendaResponseDTO;
 import com.example.demo.dto.MarcacaoDTO;
 import com.example.demo.service.AgendaService;
 import com.example.demo.util.DateUtil;
@@ -27,13 +31,16 @@ public class AgendaController {
 	AgendaService agendaService;
 
 	@GetMapping(value = "/marcacao")
-	public List<Agenda> list() throws Exception {
-		return agendaService.list();
+	public List<AgendaResponseDTO> list() throws Exception {
+		return agendaService.list().stream().map(a->{
+			return new AgendaResponseDTO(a);
+		}).collect(Collectors.toList());
 	}
 
 	@PostMapping(value = "/marcacao/save")
-	public void save(@RequestBody AgendaDTO dto) throws Exception {
-		agendaService.save(dto.toEntity());
+	public ResponseEntity<Agenda> save(@RequestBody AgendaDTO dto) throws Exception {
+		Agenda newAgenda = agendaService.save(dto.toEntity());
+		return ResponseEntity.status(HttpStatus.CREATED).body(newAgenda);
 	}
 
 	@PutMapping(value = "/marcacao/update")
