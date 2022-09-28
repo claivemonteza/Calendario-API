@@ -1,21 +1,22 @@
 package com.example.demo.dto;
 
-import java.util.Date;
-
 import com.example.demo.domain.Agenda;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.example.demo.util.DateUtil;
 
 import lombok.Data;
 
 @Data
 public class AgendaResponseDTO {
 
-	@JsonFormat(pattern = "EEE MMM dd YYYY")
-	private Date data;
-	private String informacao;
 	
+	private String data;
+	private String informacao;
+	private int day;
+	
+	@SuppressWarnings("deprecation")
 	public AgendaResponseDTO(Agenda agenda){
-		this.data = agenda.getData();
+		this.data = DateUtil.format(agenda.getData());
 		this.informacao = agenda.getInformacao();
+		this.day = agenda.getData().getDate();
 	}
 }
