@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +35,15 @@ public class AgendaController {
 
 	@GetMapping(value = "/marcacao")
 	public List<AgendaResponseDTO> list() throws Exception {
-		return agendaService.list().stream().map(a->{
-			return new AgendaResponseDTO(a);
-		}).collect(Collectors.toList());
+		Set<Date> datas =  agendaService.list().stream().map(a->a.getData()).collect(Collectors.toSet());
+		List<AgendaResponseDTO> dtos = new ArrayList<>();
+		for (Date date : datas) {
+			List<String> informacoes =  agendaService.list().stream().filter(
+					a-> a.getData().equals(date)
+				).map(a->a.getInformacao()).collect(Collectors.toList());	
+			dtos.add(new AgendaResponseDTO(date, informacoes));
+		}
+		return dtos;
 	}
 
 	@PostMapping(value = "/marcacao/save")

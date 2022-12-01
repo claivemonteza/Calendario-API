@@ -1,6 +1,8 @@
 package com.example.demo.dto;
 
-import com.example.demo.domain.Agenda;
+import java.util.Date;
+import java.util.List;
+
 import com.example.demo.util.DateUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -11,10 +13,11 @@ public class AgendaResponseDTO {
 
 	@JsonFormat(pattern = "EEE MMM dd yyyy")
 	private String data;
-	private String informacao;
+	private List<String> informacoes;
 	
-	public AgendaResponseDTO(Agenda agenda){
-		this.data = DateUtil.format(agenda.getData());
-		this.informacao = agenda.getInformacao();
+	public AgendaResponseDTO(Date date, List<String> informacoes){
+		this.data = DateUtil.format(date);
+		this.informacoes = informacoes;
 	}
+	
 }
