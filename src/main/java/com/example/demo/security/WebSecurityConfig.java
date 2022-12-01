@@ -14,10 +14,7 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	/*
-	@Autowired
-	private UserDetailsService userDetailsService;
-	*/
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	    http.cors()
@@ -39,12 +36,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		source.registerCorsConfiguration("/**", corsConfiguration);
 		return new CorsFilter(source);
 	}
-	/*
-	@Bean
-	public AuthenticationProvider authProvider() {
-		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-		provider.setPasswordEncoder(new BCryptPasswordEncoder());
-		provider.setUserDetailsService(userDetailsService);
-		return provider;
-	}	*/
 }
