@@ -31,3 +31,11 @@ bin/target/classes/META-INF/maven/com.example/Calendario-API/pom.properties
 bin/target/classes/META-INF/maven/com.example/Calendario-API/pom.xml
 target/classes/.reloadtrigger
 target/classes/META-INF/maven/com.example/Calendario-API/pom.properties
+*.class
+*.class
+*.class
+*.class
+target/classes/META-INF/maven/com.example/Calendario-API/pom.properties
+*.properties
+*.class
+*.class
