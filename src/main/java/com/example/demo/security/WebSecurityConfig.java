@@ -17,21 +17,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-	    http.cors()
-	            .and().authorizeRequests()
-	            .anyRequest().permitAll()
-	            .and().csrf().disable();
+
+		http.cors()
+        .and().authorizeRequests()
+        .anyRequest().permitAll()
+        .and().csrf().disable();
 	}
-	
-	
+
 	@Bean
 	public CorsFilter corsFilter() {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
-		//corsConfiguration.applyPermitDefaultValues();
-	    corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
-	    corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH"));
-	    corsConfiguration.setAllowedOrigins(Arrays.asList("Content-Type"));
-		
+		// corsConfiguration.applyPermitDefaultValues();
+		corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
+		corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH"));
+		corsConfiguration.setAllowedOrigins(Arrays.asList("*"));
+
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", corsConfiguration);
 		return new CorsFilter(source);
