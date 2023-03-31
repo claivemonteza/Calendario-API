@@ -27,10 +27,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public CorsFilter corsFilter() {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
-		corsConfiguration.applyPermitDefaultValues();
+		//corsConfiguration.applyPermitDefaultValues();
 	    corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
-	    corsConfiguration.setAllowedMethods(Arrays.asList("*"));
-	    corsConfiguration.setAllowedOrigins(Arrays.asList("*"));
+	    corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH"));
+	    corsConfiguration.setAllowedOrigins(Arrays.asList("Content-Type"));
 		
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", corsConfiguration);
